@@ -1,0 +1,15 @@
+import org.json.JSONObject;
+
+public class JSON1 {
+	public static void main(String[] args) {
+		// JSON-Java(org.json)
+		JSONObject students = new JSONObject();	
+		students.put("name", "HONGGIlDONG");
+		students.put("phone", "010-1111-1111");
+		students.put("address", "SEOUL");
+	
+		System.out.println(students);
+		
+	}
+
+}
