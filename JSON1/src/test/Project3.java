@@ -39,24 +39,34 @@ public class Project3 {
 				output.write(by);
 			}
 
-			Element tag0 = doc.select("source").first();
-			String dPath1 = tag0.attr("src").trim();
-			System.out.println(dPath1); // Mp3 Path 
-			String fileNames = dPath1.substring(dPath1.lastIndexOf("/") + 1);
-
-			extracted(dPath1, fileNames);
-			
-			Element tag = doc.select(".img > img").first();
-			String dPath = "https://sum.su.or.kr:8888" + tag.attr("src").trim();
-			System.out.println(dPath); // Mp3 Path
-			String fileName = dPath.substring(dPath.lastIndexOf("/") + 1);
-			extracted(dPath, fileName);
+			setPath(doc, "", "source", "src");
+	
+			setPath(doc, "https://sum.su.or.kr:8888", ".img > img", "src");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
+	
+	private static void setPath(Document doc, String url, String selector0, String selector1) {
+	
+		Element tag = doc.select(selector0).first();
+		
+		String dPath = "";
+		
+		if(url.equals("")) {
+			dPath = tag.attr(selector1).trim();
+		}else {
+			dPath = url+tag.attr(selector1).trim();
+		}
+		
+		String fileName = dPath.substring(dPath.lastIndexOf("/") + 1);
+		
+		extracted(dPath, fileName);
+		
+	}
+	
 
 	private static void extracted(String dPath, String fileName) {
 		Runnable r = new DownLoadBroker(dPath, fileName);
